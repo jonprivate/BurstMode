@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( pyramids )
+find_package( OpenCV REQUIRED )
+add_executable( pyramids testPyramids.cpp pyramids.cpp pyramids.h)
+target_link_libraries( pyramids ${OpenCV_LIBS} )
