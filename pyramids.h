@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include "mode.h"
 
 using namespace cv;
+using namespace std;
 
 static const int MIN_PIXELS_ON_EACH_DIM = 400;
 class ImageByLevel {
@@ -17,8 +19,8 @@ private:
 	int level;
 public:
 	ImageByLevel(Mat& img, int lev);
-	Mat getImage();
-	int getLevel();
+	Mat getImage() const;
+	int getLevel() const;
 };
 
 class Pyramids {

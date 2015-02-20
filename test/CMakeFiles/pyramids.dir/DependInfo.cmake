@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/jon/Desktop/research/program/BurstOfImages/test/featuredPyramids.cpp" "/Users/jon/Desktop/research/program/BurstOfImages/test/CMakeFiles/pyramids.dir/featuredPyramids.cpp.o"
+  "/Users/jon/Desktop/research/program/BurstOfImages/test/imageNode.cpp" "/Users/jon/Desktop/research/program/BurstOfImages/test/CMakeFiles/pyramids.dir/imageNode.cpp.o"
   "/Users/jon/Desktop/research/program/BurstOfImages/test/pyramids.cpp" "/Users/jon/Desktop/research/program/BurstOfImages/test/CMakeFiles/pyramids.dir/pyramids.cpp.o"
   "/Users/jon/Desktop/research/program/BurstOfImages/test/testPyramids.cpp" "/Users/jon/Desktop/research/program/BurstOfImages/test/CMakeFiles/pyramids.dir/testPyramids.cpp.o"
   )

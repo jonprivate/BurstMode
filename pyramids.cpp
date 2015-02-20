@@ -7,11 +7,11 @@ ImageByLevel::ImageByLevel(Mat& img, int lev)
 	level = lev;
 }
 
-Mat ImageByLevel::getImage()
+Mat ImageByLevel::getImage() const
 {
 	return image;
 }
-int ImageByLevel::getLevel()
+int ImageByLevel::getLevel() const
 {
 	return level;
 }
@@ -34,12 +34,18 @@ Pyramids::Pyramids(Mat& originalImage)
 void Pyramids::computePyramids(ImageByLevel& originalLevel)
 {
     Mat tmp = originalLevel.getImage(), dst;
+#ifdef TEST
+    printf("Size of original level: %drows, %dcols\n", tmp.rows, tmp.cols);
+#endif
     int topLevel = originalLevel.getLevel();
     int currentLevel = topLevel - 1;
     while(tmp.rows >= MIN_PIXELS_ON_EACH_DIM || tmp.cols >= MIN_PIXELS_ON_EACH_DIM) {
     	pyrDown( tmp, dst, Size( tmp.cols/2, tmp.rows/2 ) );
     	ImageByLevel currentLevelImage(dst, currentLevel);
-        imagePyramids.push_back(currentLevelImage);
+        imagePyramids.insert(imagePyramids.begin(), currentLevelImage);
+#ifdef TEST
+        printf("Size of current level: %drows, %dcols\n", dst.rows, dst.cols);
+#endif
         tmp = dst;
     }
 }

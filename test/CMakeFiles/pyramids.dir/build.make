@@ -95,16 +95,66 @@ CMakeFiles/pyramids.dir/pyramids.cpp.o.provides: CMakeFiles/pyramids.dir/pyramid
 
 CMakeFiles/pyramids.dir/pyramids.cpp.o.provides.build: CMakeFiles/pyramids.dir/pyramids.cpp.o
 
+CMakeFiles/pyramids.dir/imageNode.cpp.o: CMakeFiles/pyramids.dir/flags.make
+CMakeFiles/pyramids.dir/imageNode.cpp.o: imageNode.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/jon/Desktop/research/program/BurstOfImages/test/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pyramids.dir/imageNode.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pyramids.dir/imageNode.cpp.o -c /Users/jon/Desktop/research/program/BurstOfImages/test/imageNode.cpp
+
+CMakeFiles/pyramids.dir/imageNode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pyramids.dir/imageNode.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/jon/Desktop/research/program/BurstOfImages/test/imageNode.cpp > CMakeFiles/pyramids.dir/imageNode.cpp.i
+
+CMakeFiles/pyramids.dir/imageNode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pyramids.dir/imageNode.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/jon/Desktop/research/program/BurstOfImages/test/imageNode.cpp -o CMakeFiles/pyramids.dir/imageNode.cpp.s
+
+CMakeFiles/pyramids.dir/imageNode.cpp.o.requires:
+.PHONY : CMakeFiles/pyramids.dir/imageNode.cpp.o.requires
+
+CMakeFiles/pyramids.dir/imageNode.cpp.o.provides: CMakeFiles/pyramids.dir/imageNode.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/imageNode.cpp.o.provides.build
+.PHONY : CMakeFiles/pyramids.dir/imageNode.cpp.o.provides
+
+CMakeFiles/pyramids.dir/imageNode.cpp.o.provides.build: CMakeFiles/pyramids.dir/imageNode.cpp.o
+
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.o: CMakeFiles/pyramids.dir/flags.make
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.o: featuredPyramids.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/jon/Desktop/research/program/BurstOfImages/test/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/pyramids.dir/featuredPyramids.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/pyramids.dir/featuredPyramids.cpp.o -c /Users/jon/Desktop/research/program/BurstOfImages/test/featuredPyramids.cpp
+
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pyramids.dir/featuredPyramids.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/jon/Desktop/research/program/BurstOfImages/test/featuredPyramids.cpp > CMakeFiles/pyramids.dir/featuredPyramids.cpp.i
+
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pyramids.dir/featuredPyramids.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/jon/Desktop/research/program/BurstOfImages/test/featuredPyramids.cpp -o CMakeFiles/pyramids.dir/featuredPyramids.cpp.s
+
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.requires:
+.PHONY : CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.requires
+
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.provides: CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.requires
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.provides.build
+.PHONY : CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.provides
+
+CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.provides.build: CMakeFiles/pyramids.dir/featuredPyramids.cpp.o
+
 # Object files for target pyramids
 pyramids_OBJECTS = \
 "CMakeFiles/pyramids.dir/testPyramids.cpp.o" \
-"CMakeFiles/pyramids.dir/pyramids.cpp.o"
+"CMakeFiles/pyramids.dir/pyramids.cpp.o" \
+"CMakeFiles/pyramids.dir/imageNode.cpp.o" \
+"CMakeFiles/pyramids.dir/featuredPyramids.cpp.o"
 
 # External object files for target pyramids
 pyramids_EXTERNAL_OBJECTS =
 
 pyramids: CMakeFiles/pyramids.dir/testPyramids.cpp.o
 pyramids: CMakeFiles/pyramids.dir/pyramids.cpp.o
+pyramids: CMakeFiles/pyramids.dir/imageNode.cpp.o
+pyramids: CMakeFiles/pyramids.dir/featuredPyramids.cpp.o
 pyramids: CMakeFiles/pyramids.dir/build.make
 pyramids: /usr/local/lib/libopencv_videostab.2.4.10.dylib
 pyramids: /usr/local/lib/libopencv_ts.a
@@ -135,6 +185,8 @@ CMakeFiles/pyramids.dir/build: pyramids
 
 CMakeFiles/pyramids.dir/requires: CMakeFiles/pyramids.dir/testPyramids.cpp.o.requires
 CMakeFiles/pyramids.dir/requires: CMakeFiles/pyramids.dir/pyramids.cpp.o.requires
+CMakeFiles/pyramids.dir/requires: CMakeFiles/pyramids.dir/imageNode.cpp.o.requires
+CMakeFiles/pyramids.dir/requires: CMakeFiles/pyramids.dir/featuredPyramids.cpp.o.requires
 .PHONY : CMakeFiles/pyramids.dir/requires
 
 CMakeFiles/pyramids.dir/clean:

@@ -115,6 +115,54 @@ pyramids/fast:
 	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/build
 .PHONY : pyramids/fast
 
+featuredPyramids.o: featuredPyramids.cpp.o
+.PHONY : featuredPyramids.o
+
+# target to build an object file
+featuredPyramids.cpp.o:
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/featuredPyramids.cpp.o
+.PHONY : featuredPyramids.cpp.o
+
+featuredPyramids.i: featuredPyramids.cpp.i
+.PHONY : featuredPyramids.i
+
+# target to preprocess a source file
+featuredPyramids.cpp.i:
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/featuredPyramids.cpp.i
+.PHONY : featuredPyramids.cpp.i
+
+featuredPyramids.s: featuredPyramids.cpp.s
+.PHONY : featuredPyramids.s
+
+# target to generate assembly for a file
+featuredPyramids.cpp.s:
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/featuredPyramids.cpp.s
+.PHONY : featuredPyramids.cpp.s
+
+imageNode.o: imageNode.cpp.o
+.PHONY : imageNode.o
+
+# target to build an object file
+imageNode.cpp.o:
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/imageNode.cpp.o
+.PHONY : imageNode.cpp.o
+
+imageNode.i: imageNode.cpp.i
+.PHONY : imageNode.i
+
+# target to preprocess a source file
+imageNode.cpp.i:
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/imageNode.cpp.i
+.PHONY : imageNode.cpp.i
+
+imageNode.s: imageNode.cpp.s
+.PHONY : imageNode.s
+
+# target to generate assembly for a file
+imageNode.cpp.s:
+	$(MAKE) -f CMakeFiles/pyramids.dir/build.make CMakeFiles/pyramids.dir/imageNode.cpp.s
+.PHONY : imageNode.cpp.s
+
 pyramids.o: pyramids.cpp.o
 .PHONY : pyramids.o
 
@@ -172,6 +220,12 @@ help:
 	@echo "... pyramids"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... featuredPyramids.o"
+	@echo "... featuredPyramids.i"
+	@echo "... featuredPyramids.s"
+	@echo "... imageNode.o"
+	@echo "... imageNode.i"
+	@echo "... imageNode.s"
 	@echo "... pyramids.o"
 	@echo "... pyramids.i"
 	@echo "... pyramids.s"
