@@ -57,6 +57,7 @@ public:
 	vector<Mat> getNeighborHomographies(int level, int i);
 	Mat getUpperLevelHomography(int level, int i);
 	vector<vector<Mat>> refineHomographies();
+	Mat discretizeHomography(int rows, int cols, Mat& xflow, Mat& yflow);
 };
 
 class PairedFeaturedImagePyramids {
@@ -64,6 +65,7 @@ protected:
 	FeaturedImagePyramids reference;
 	FeaturedImagePyramids companion;
 	PairedPyramidHomography pairedHomographies;
+	vector<Mat> homographyFlow;
 public:
 	PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp, PairedPyramidHomography PHs);
 	PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp);

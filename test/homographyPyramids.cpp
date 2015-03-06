@@ -76,23 +76,8 @@ int PairedImageHomography::getColsPerRow() {
 	return colsPerRow;
 }
 
-/*
-class PairedPyramidHomography {
-protected:
-	vector<PairedImageHomography> pairedImageHomographies;
-public:
-	PairedPyramidHomography(vector<PairedImageHomography> IHs);
-	PairedPyramidHomography(FeaturedImagePyramids srcPyramid, FeaturedImagePyramids dstPyramid);
-	vector<vector<Mat>> computePyramidHomography(FeaturedImagePyramids srcPyramid, FeaturedImagePyramids dstPyramid);
-	vector<vector<Mat>> getPyramidHomography();
-	vector<Mat> getImageHomographyByLevel(int level);
-	Mat getNodeHomographyByLevelAndIndex(int level, int i);
-	vector<Mat> getNeighborHomographies(int level, int i);
-	Mat getUpperLevelHomography(int level, int i);
-	vector<vector<Mat>> refineHomographies();
-};
-*/
 
+/*********************************************************************************************/
 PairedPyramidHomography::PairedPyramidHomography(vector<PairedImageHomography> IHs) {
 	PairedImageHomographies = IHs;
 }
@@ -137,63 +122,86 @@ Mat PairedPyramidHomography::getNodeHomographyByLevelAndIndex(int level, int i) 
 	return pihs[i];
 }
 
-vector<Mat> getNeighborHomographies(int level, int i) {
+vector<Mat> PairedPyramidHomography::getNeighborHomographies(int level, int i) {
 	return pairedImageHomographies[level].getNeighborHomographies(i);
 }
 
-Mat getUpperLevelHomography(int level, int i) {
+Mat PairedPyramidHomography::getUpperLevelHomography(int level, int i) {
 	int row, col;
 	int colsPerRow = pairedImageHomographies[level].getColsPerRow();
 	rowColumnOfIndex(i, colsPerRow, row, col);
 	return pairedImageHomographies[level].getNodeHomographyByIndex(indexOfRowColumn(row / 2, col / 2, colsPerRow));
 }
 
-vector<vector<Mat>> refineHomographies() {
-	//
+vector<vector<Mat>> PairedPyramidHomography::refineHomographies() {
+	// this is a fake version, just to complete this part for test
+}
+
+void PairedPyramidHomography::discretizeHomography(int rows, int cols, Mat& xflow, Mat& yflow) {
+	// get the finest level homographies
+	int level = pairedImageHomographies.size() - 1;
+	vector<Mat> homographies = getImageHomographyByLevel(level);
+	// get alignments of image nodes and pixel # in each node
+	int colsPerRow = pairedImageHomographies[0].getColsPerRow();
+	int pixelsPerCellCol = rows / colsPerRow;
+	int pixelsPerCellRow = cols / colsPerRow;
+	// go through all nodes and compute flow for each node, store those in xflow and yflow
+	for (int i = 0; i < homographies.size(); i++) {
+		// first compute the position of the current image node
+		int row, col;
+		rowColumnOfIndex(i, colsPerRow, row, col);
+		// then map onto the real image pixel axis
+		int start_row = row * pixelsPerCellCol, end_row = (row + 1) * pixelsPerCellCol - 1;
+		int start_col = col * pixelsPerCellRow, end_col = (col + 1) * pixelsPerCellRow - 1;
+		// initialize all points in that image node
+		vector<Point2f> src(pixelsPerCellCol * pixelsPerCellRow);
+    	vector<Point2f> dst(pixelsPerCellCol * pixelsPerCellRow);
+    	// compute perspective transformation
+    	perspectiveTransform( src, dst, H);
+    	// store the result (dst - src) into xflow and yflow
+    	for (int r = start_row; r <= end_row; r++) {
+    		for (int c = start_col; c <= end_col; c++) {
+    			int ind = (r - start_row) * pixelsPerCellRow + (c - start_col);
+    			xflow.at<xflow.type()>(r,c) = (int)(dst[ind].x - src[ind].x);//is the function called type(), what's its return type?
+    			yflow.at<yflow.type()>(r,c) = (int)(dst[ind].y - src[ind].y);//index: first row, then col
+    		}
+    	}
+	}
 }
 /*********************************************************************************************/
-/*
-class PairedFeaturedImagePyramids {
-protected:
-	FeaturedImagePyramids reference;
-	FeaturedImagePyramids companion;
-	PairedPyramidHomography pairedHomographies;
-public:
-	PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp, PairedPyramidHomography PHs);
-	PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp);
-	vector<vector<Mat>> computePyramidHomography();
-	vector<vector<Mat>> getPyramidHomography();
-	vector<Mat> getImageHomographyByLevel(int level);
-	Mat getNodeHomographyByLevelAndIndex(int level, int i);
-};
-*/
 
 PairedFeaturedImagePyramids::PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp, PairedPyramidHomography PHs) {
 	reference = ref;
 	companion = comp;
 	pairedHomographies = PHs;
+	Mat xflow, yflow;
+	Mat img = ref.getFeaturedImageByLevel(0).getFeaturedImageNodeByIndex(0).getImage();
+	pairedHomographies.discretizeHomography(img.rows, img.cols, xflow, yflow);
+	homographyFlow.add(xflow);
+	homographyFlow.add(yflow);
 }
-PairedFeaturedImagePyramids::PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp) {
-	//
+PairedFeaturedImagePyramids::PairedFeaturedImagePyramids(FeaturedImagePyramids ref, FeaturedImagePyramids comp): pairedHomographies(ref, comp) {
+	reference = ref;
+	companion = comp;
+	Mat xflow, yflow;
+	Mat img = ref.getFeaturedImageNodeByIndex(ref.getLevelNumber() - 1).getImage();
+	pairedHomographies.discretizeHomography(img.rows, img.cols, xflow, yflow);
+	homographyFlow.add(xflow);
+	homographyFlow.add(yflow);
 }
 
 vector<vector<Mat>> PairedFeaturedImagePyramids::computePyramidHomography() {
-	int levelNum = ref.getLevelNumber();
-	for (int l = 0; l < levelNum; l++) {
-		FeaturedImage srcImage = reference.getFeaturedImageByLevel(l);
-		FeaturedImage dstImage = companion.getFeaturedImageByLevel(l);
-		PairedPyramidHomography pairedHomography
-	}
+	return pairedHomographies.computePyramidHomography(reference, companion);
 }
 
 vector<vector<Mat>> PairedFeaturedImagePyramids::getPyramidHomography() {
-	//
+	return pairedHomographies.getPyramidHomography();
 }
 
 vector<Mat> PairedFeaturedImagePyramids::getImageHomographyByLevel(int level) {
-	//
+	return pairedHomographies.getImageHomographyByLevel(level);
 }
 
 Mat PairedFeaturedImagePyramids::getNodeHomographyByLevelAndIndex(int level, int i) {
-	//
+	return pairedHomographies.getNodeHomographyByLevelAndIndex(level, i);
 }
